@@ -10,17 +10,14 @@ import SwiftUI
 
 // 16.56
 struct ListingItemView: View {
+    var images = ["villa1_1", "villa1_2", "villa1_3"]
+    
     var body: some View {
         VStack(spacing: 8) {
             // images
-            TabView{
-                ForEach(0...3, id: \.self) { image in
-                    Rectangle()
-                }
-            }
-            .frame(height: 300)
-            .clipShape(.rect(cornerRadius: 10))
-            .tabViewStyle(.page)
+            ListingImageCarrouselView()
+                .frame(height: 320)
+                .clipShape(.rect(cornerRadius: 10))
             
             // listing details
             HStack(alignment: .top) {
@@ -28,14 +25,15 @@ struct ListingItemView: View {
                     // Location
                     Text("Miami, Florida")
                         .font(.headline)
+                        .foregroundStyle(.black)
                     
                     // Distance
                     Text("12 mi away")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.gray)
                     
                     // Dates
                     Text("Nov 3 - 10")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.gray)
                     
                     // Price
                     HStack(spacing: 4) {
@@ -43,12 +41,14 @@ struct ListingItemView: View {
                             .font(.headline)
                         Text("night")
                     }
+                    .foregroundStyle(.black)
                 }
                 
                 Spacer()
                 
                 Label("4.86", systemImage: "star.fill")
-                
+                    .foregroundStyle(.black)
+
             }
         }
     }

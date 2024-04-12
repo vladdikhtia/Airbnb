@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RatingLabel: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Label("4.86", systemImage: "star.fill")
+            .foregroundStyle(.black)
     }
 }
 
