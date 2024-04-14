@@ -9,12 +9,30 @@ import SwiftUI
 
 struct ListingDetailView: View {
     var images = ["villa1_1", "villa1_2", "villa1_3"]
+    
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         ScrollView{
             // images
-            ListingImageCarrouselView()
-                .frame(height: 320)
+            ZStack(alignment: .topLeading) {
+                ListingImageCarrouselView()
+                    .frame(height: 320)
+                
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
+                        .background{
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 32, height: 32)
+                        }
+                        .padding(32)
+                })
+                
+            }
                 
             VStack(alignment: .leading, spacing: 8) {
                 Text("Miami Villa")
@@ -43,30 +61,15 @@ struct ListingDetailView: View {
             
             // host info
             HostInfoView()
-                
+            
             Divider()
             
-            // listing features
-            VStack(alignment: .leading, spacing: 16) {
-                ForEach(0..<2) { feature in
-                    HStack(spacing: 12) {
-                        Image(systemName: "medal")
-                        
-                        VStack(alignment: .leading) {
-                            Text("Superhost")
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                            
-                            Text("Superhost are experience, highly rated hosts who are commited to providing great stars for guests")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                        }
-                        
-                        Spacer()
-                    }
-                }
-            }
-            .padding()
+            ApartmentInfoView()
+        }
+        .ignoresSafeArea()
+        .padding(.bottom, 64)
+        .overlay(alignment: .bottom) {
+            ReserveButton()
         }
     }
 }
