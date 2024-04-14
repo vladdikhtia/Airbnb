@@ -10,31 +10,24 @@ import SwiftUI
 struct ExploreView: View {
     var body: some View {
         NavigationStack {
+            SearchAndFilterBar()
+            
             ScrollView {
-                SearchAndFilterBar()
                 
                 LazyVStack(spacing: 32) {
                     ForEach(0..<10, id: \.self) { listing in
                         NavigationLink(value: listing) {
                             ListingItemView()
                                 .frame(height: 400)
-                                
                         }
-                        
-//                        NavigationLink {
-//                            EmptyView()
-//                        } label: {
-//                            ListingItemView()
-//                        }
-//                            .frame(height: 400)
-//                            .foregroundStyle(.black)
                     }
+                    .padding()
                 }
-                .padding()
-            }
-            
-            .navigationDestination(for: Int.self) { listing in
-                Text("Listing num: \(listing)")
+                
+                .navigationDestination(for: Int.self) { listing in
+                    ListingDetailView()
+                        .navigationBarBackButtonHidden()
+                }
             }
         }
     }
