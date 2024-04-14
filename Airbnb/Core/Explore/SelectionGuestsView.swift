@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct SelectionGuestsView: View {
+    @Binding var selOption: DestinationSearchOptions
+    @Binding var numGuests: Int
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            if selOption == .guests {
+                Text("Who's coming?")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                
+                Stepper("^[\(numGuests) Adult](inflect:true)", value: $numGuests,in:1...10, step: 1)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                
+            } else {
+                CollapsedPickerView(title: "Who", description: "Add guests")
+            }
+        }
+        .customCollapsedModifier(height: selOption == .guests ? 120 : 64) {
+            selOption = .guests
+        }
     }
 }
 
 #Preview {
-    SelectionGuestsView()
+    SelectionGuestsView(selOption: .constant(.guests), numGuests: .constant(2))
 }

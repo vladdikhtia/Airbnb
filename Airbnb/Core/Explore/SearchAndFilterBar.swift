@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchAndFilterBar: View {
+    @Binding var showDestinationSearchView: Bool
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
@@ -32,6 +33,11 @@ struct SearchAndFilterBar: View {
             })
             .foregroundStyle(.black)
         }
+        .onTapGesture {
+            withAnimation(.snappy){
+                showDestinationSearchView.toggle()
+            }
+        }
         .padding(.horizontal)
         .padding(.vertical, 10)
         .overlay{
@@ -45,5 +51,5 @@ struct SearchAndFilterBar: View {
 }
 
 #Preview {
-    SearchAndFilterBar()
+    SearchAndFilterBar(showDestinationSearchView: .constant(false))
 }

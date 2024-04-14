@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct DateSelectionView: View {
+    @Binding var selOption: DestinationSearchOptions
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            if selOption == .dates {
+                Text("When's your trip?")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                
+                VStack{
+                    DatePicker("From", selection: $fromDate, displayedComponents: .date)
+                    
+                    Divider()
+                    
+                    DatePicker("To", selection: $toDate, displayedComponents: .date)
+                }
+                .foregroundStyle(.gray)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                
+            } else {
+                CollapsedPickerView(title: "When", description: "Add dates")
+            }
+        }
+        .customCollapsedModifier(height: selOption == .dates ? 180 : 64) {
+            selOption = .dates
+        }
     }
 }
-
 #Preview {
-    DateSelectionView()
+    DateSelectionView(selOption: .constant(.dates), fromDate: .constant(.now), toDate: .constant(.distantFuture))
 }
