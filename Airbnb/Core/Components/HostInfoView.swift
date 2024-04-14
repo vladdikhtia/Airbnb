@@ -9,25 +9,52 @@ import SwiftUI
 
 struct HostInfoView: View {
     var body: some View {
-        HStack{
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Entire villa hosted by \nTom Smith")
-                    .font(.headline)
-                
+        VStack{
+            HStack{
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Entire villa hosted by \nTom Smith")
+                        .font(.headline)
+                    
                     Text(" 4 guests - 4 bedrooms - 4 beds - 3 baths")
-                    .font(.caption)
+                        .font(.caption)
+                }
+                
+                Spacer()
+                
+                Image("maleProfile")
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 64, height: 64)
+                
             }
+            .padding()
             
-            Spacer()
             
-            Image("maleProfile")
-                .resizable()
-                .scaledToFill()
-                .clipShape(Circle())
-                .frame(width: 64, height: 64)
-
+            Divider()
+            
+            // listing features
+            VStack(alignment: .leading, spacing: 16) {
+                ForEach(0..<2) { feature in
+                    HStack(spacing: 12) {
+                        Image(systemName: "medal")
+                        
+                        VStack(alignment: .leading) {
+                            Text("Superhost")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                            
+                            Text("Superhost are experience, highly rated hosts who are commited to providing great stars for guests")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        Spacer()
+                    }
+                }
+            }
+            .padding()
         }
-        .padding()
+        
     }
 }
 
