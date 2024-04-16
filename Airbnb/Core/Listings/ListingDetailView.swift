@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ListingDetailView: View {
-    var images = ["villa1_1", "villa1_2", "villa1_3"]
     
     @Environment(\.dismiss) var dismiss
 
@@ -67,6 +66,7 @@ struct ListingDetailView: View {
             
             ApartmentInfoView()
         }
+        .toolbar(.hidden, for: .tabBar)
         .ignoresSafeArea()
         .padding(.bottom, 64)
         .overlay(alignment: .bottom) {
