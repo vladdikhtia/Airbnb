@@ -8,6 +8,7 @@ import MapKit
 import SwiftUI
 
 struct ApartmentInfoView: View {
+    let listing: Listing
     var body: some View {
         VStack{
             // apartment info
@@ -17,7 +18,7 @@ struct ApartmentInfoView: View {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16){
-                        ForEach(1..<6) { room in
+                        ForEach(1...listing.numberOfBedrooms, id: \.self) { room in
                             VStack(alignment: .leading) {
                                 Image(systemName: "bed.double")
                                 
@@ -44,12 +45,12 @@ struct ApartmentInfoView: View {
                     .font(.headline)
                     
                 
-                ForEach( 0..<5) { feature in
+                ForEach(listing.amentities) { amentity in
                     HStack(spacing: 8) {
-                        Image(systemName: "wifi")
+                        Image(systemName: "\(amentity.imageName)")
                             .frame(width: 32)
                         
-                        Text("Wifi")
+                        Text("\(amentity.title)")
                             .font(.footnote)
                         
                         Spacer()
@@ -60,7 +61,7 @@ struct ApartmentInfoView: View {
             
             Divider()
             
-            MapView()
+            MapView(listing: listing)
             .padding()
         }
         
@@ -68,5 +69,5 @@ struct ApartmentInfoView: View {
 }
 
 #Preview {
-    ApartmentInfoView()
+    ApartmentInfoView(listing: DeveloperPreview().listings[0])
 }

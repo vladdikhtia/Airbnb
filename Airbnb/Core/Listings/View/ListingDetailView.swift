@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ListingDetailView: View {
-    
+
     @Environment(\.dismiss) var dismiss
+    let listing: Listing
 
     var body: some View {
         ScrollView{
             // images
             ZStack(alignment: .topLeading) {
-                ListingImageCarrouselView()
+                ListingImageCarrouselView(listing: listing)
                     .frame(height: 320)
                 
                 Button(action: {
@@ -35,7 +36,7 @@ struct ListingDetailView: View {
             }
                 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Miami Villa")
+                Text("\(listing.title)")
                     .font(.title)
                     .fontWeight(.semibold)
                 
@@ -50,7 +51,7 @@ struct ListingDetailView: View {
                     }
                     .foregroundStyle(.black)
                     
-                    Text("Miami, Florida")
+                    Text("\(listing.city), \(listing.state)")
                 }
                 .font(.caption)
             }
@@ -60,11 +61,11 @@ struct ListingDetailView: View {
             Divider()
             
             // host info
-            HostInfoView()
+            HostInfoView(listing: listing)
             
             Divider()
             
-            ApartmentInfoView()
+            ApartmentInfoView(listing: listing)
         }
         .toolbar(.hidden, for: .tabBar)
         .ignoresSafeArea()
@@ -76,5 +77,5 @@ struct ListingDetailView: View {
 }
 
 #Preview {
-    ListingDetailView()
+    ListingDetailView(listing: DeveloperPreview().listings[0])
 }

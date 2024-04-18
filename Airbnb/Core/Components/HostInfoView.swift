@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct HostInfoView: View {
+    let listing: Listing
+    
     var body: some View {
         VStack{
             HStack{
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Entire villa hosted by \nTom Smith")
+                    Text("Entire \(listing.listingType.description) hosted by \n\(listing.ownerName)")
                         .font(.headline)
                     
-                    Text(" 4 guests - 4 bedrooms - 4 beds - 3 baths")
+                    Text(" \(listing.numberOfGuests) guests - \(listing.numberOfBedrooms) bedrooms - \(listing.numberOfBeds) beds - \(listing.numberOfBathrooms) baths")
                         .font(.caption)
                 }
                 
                 Spacer()
                 
-                Image("maleProfile")
+                Image("\(listing.ownerImageUrl)")
                     .resizable()
                     .scaledToFill()
                     .clipShape(Circle())
@@ -35,16 +37,16 @@ struct HostInfoView: View {
             
             // listing features
             VStack(alignment: .leading, spacing: 16) {
-                ForEach(0..<2) { feature in
+                ForEach(listing.features) { feature in
                     HStack(spacing: 12) {
                         Image(systemName: "medal")
                         
                         VStack(alignment: .leading) {
-                            Text("Superhost")
+                            Text("\(feature.title)")
                                 .font(.footnote)
                                 .fontWeight(.semibold)
                             
-                            Text("Superhost are experience, highly rated hosts who are commited to providing great stars for guests")
+                            Text("\(feature.subTitle)")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
@@ -59,5 +61,5 @@ struct HostInfoView: View {
 }
 
 #Preview {
-    HostInfoView()
+    HostInfoView(listing: DeveloperPreview().listings[0])
 }
