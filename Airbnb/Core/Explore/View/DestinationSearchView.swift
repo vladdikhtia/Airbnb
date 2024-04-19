@@ -16,7 +16,8 @@ enum DestinationSearchOptions {
 
 struct DestinationSearchView: View {
     @Binding var show: Bool
-    @State var destination = ""
+    @ObservedObject var viewModel: ExploreViewModel
+//    @State var destination = ""
     @State var fromDate = Date()
     @State var toDate = Date()
     @State var numGuests = 1
@@ -28,6 +29,7 @@ struct DestinationSearchView: View {
             HStack{
                 Button{
                     withAnimation(.snappy){
+                        viewModel.updateListingForLocation()
                         show = false
                     }
                 } label: {
@@ -38,9 +40,9 @@ struct DestinationSearchView: View {
                 
                 Spacer()
                 
-                if(!destination.isEmpty){
+                if(!viewModel.searchLocation.isEmpty){
                     Button{
-                        destination=""
+                        viewModel.searchLocation=""
                     } label: {
                         Text("Clear")
                     }
@@ -52,7 +54,7 @@ struct DestinationSearchView: View {
             .padding()
             
             // location selection view
-            LocationSelectionView(selOption: $selectedOption, destination: $destination)
+            LocationSelectionView(selOption: $selectedOption, location: $viewModel.searchLocation)
             
             // date selection view
             DateSelectionView(selOption: $selectedOption, fromDate: $fromDate, toDate: $toDate)
@@ -65,9 +67,9 @@ struct DestinationSearchView: View {
     }
 }
 
-#Preview {
-    DestinationSearchView(show: .constant(false))
-}
+//#Preview {
+//    DestinationSearchView(show: .constant(false), viewModel: ExploreViewModel)
+//}
 
 
 
