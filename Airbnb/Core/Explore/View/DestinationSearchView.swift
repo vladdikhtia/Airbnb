@@ -17,7 +17,6 @@ enum DestinationSearchOptions {
 struct DestinationSearchView: View {
     @Binding var show: Bool
     @ObservedObject var viewModel: ExploreViewModel
-//    @State var destination = ""
     @State var fromDate = Date()
     @State var toDate = Date()
     @State var numGuests = 1
@@ -43,6 +42,7 @@ struct DestinationSearchView: View {
                 if(!viewModel.searchLocation.isEmpty){
                     Button{
                         viewModel.searchLocation=""
+                        viewModel.updateListingForLocation()
                     } label: {
                         Text("Clear")
                     }
@@ -54,7 +54,7 @@ struct DestinationSearchView: View {
             .padding()
             
             // location selection view
-            LocationSelectionView(selOption: $selectedOption, location: $viewModel.searchLocation)
+            LocationSelectionView(selOption: $selectedOption, viewModel: viewModel)
             
             // date selection view
             DateSelectionView(selOption: $selectedOption, fromDate: $fromDate, toDate: $toDate)
@@ -67,9 +67,9 @@ struct DestinationSearchView: View {
     }
 }
 
-//#Preview {
-//    DestinationSearchView(show: .constant(false), viewModel: ExploreViewModel)
-//}
+#Preview {
+    DestinationSearchView(show: .constant(false), viewModel: ExploreViewModel(service: ExploreService()))
+}
 
 
 

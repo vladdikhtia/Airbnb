@@ -9,8 +9,7 @@ import SwiftUI
 
 struct LocationSelectionView: View {
     @Binding var selOption: DestinationSearchOptions
-    @Binding var location: String
-//    @ObservedObject var viewModel: ExploreViewModel
+    @ObservedObject var viewModel: ExploreViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,9 +22,10 @@ struct LocationSelectionView: View {
                     Image(systemName: "magnifyingglass")
                         .imageScale(.small)
                     
-                    TextField("Search destinations", text: $location)
+                    TextField("Search destinations", text: $viewModel.searchLocation)
                         .font(.subheadline)
                         .onSubmit {
+                            viewModel.updateListingForLocation()
                             print("Listings updating...")
                         }
                 }
@@ -46,6 +46,6 @@ struct LocationSelectionView: View {
     }
 }
 
-//#Preview {
-//    LocationSelectionView(selOption: .constant(.location), destination: .constant("fsdfds"))
-//}
+#Preview {
+    LocationSelectionView(selOption: .constant(.location), viewModel: ExploreViewModel(service: ExploreService()))
+}

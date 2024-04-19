@@ -17,7 +17,7 @@ struct ExploreView: View {
             if showDestinationSearchView {
                 DestinationSearchView(show: $showDestinationSearchView, viewModel: viewModel)
             } else {
-                SearchAndFilterBar(showDestinationSearchView: $showDestinationSearchView)
+                SearchAndFilterBar(showDestinationSearchView: $showDestinationSearchView, location: $viewModel.searchLocation)
                 
                 ScrollView {
                     

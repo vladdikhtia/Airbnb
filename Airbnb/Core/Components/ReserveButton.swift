@@ -27,7 +27,6 @@ struct ReserveButton: View {
                 }
                 .font(.footnote)
 
-                
                 Spacer()
                 
                 Button(action: {
