@@ -1,6 +1,4 @@
 # Airbnb Clone
-
-## Overview
 This is an Airbnb clone application built using Swift and SwiftUI, integrated with MapKit for location services. The app aims to practise the core functionalities of Airbnb, allowing users to browse, and search accommodations worldwide.
 
 ## Features
